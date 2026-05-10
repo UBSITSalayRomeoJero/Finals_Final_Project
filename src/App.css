@@ -1756,6 +1756,169 @@
   }
 }
 
+.dashboard-page {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 32px;
+  background: #0d1117;
+  color: #f4f6f8;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.inbox-panel,
+.message-panel {
+  min-width: 0;
+  border: 1px solid rgba(143, 180, 255, 0.14);
+  border-radius: 8px;
+  background: #121821;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.26);
+}
+
+.inbox-panel {
+  padding: 24px;
+  overflow: hidden;
+}
+
+.message-panel {
+  padding: 24px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.inbox-list {
+  display: grid;
+  gap: 10px;
+  max-height: 560px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.inbox-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(143, 180, 255, 0.1);
+  border-radius: 8px;
+  background: #151d29;
+}
+
+.inbox-item.active,
+.inbox-item:hover {
+  border-color: rgba(215, 180, 106, 0.48);
+  background: rgba(215, 180, 106, 0.08);
+}
+
+.inbox-select-btn {
+  display: flex;
+  min-width: 0;
+  gap: 12px;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.sender-avatar {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(143, 180, 255, 0.1);
+  color: #8fb4ff;
+  font-weight: 900;
+}
+
+.inbox-copy {
+  min-width: 0;
+}
+
+.inbox-copy strong,
+.inbox-copy small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inbox-copy strong {
+  color: #ffffff;
+}
+
+.inbox-copy small {
+  margin-top: 3px;
+  color: rgba(244, 246, 248, 0.58);
+}
+
+.delete-message-btn {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 8px;
+  background: rgba(248, 113, 113, 0.08);
+  color: #fca5a5;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.delete-message-btn:hover:not(:disabled) {
+  background: rgba(248, 113, 113, 0.18);
+}
+
+.delete-message-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.message-header,
+.message-meta,
+.message-body {
+  min-width: 0;
+}
+
+.message-body p {
+  margin: 0;
+  color: rgba(244, 246, 248, 0.76);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1100px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inbox-list {
+    max-height: 420px;
+  }
+}
+
+@media (max-width: 560px) {
+  .dashboard-page {
+    padding: 22px 14px;
+  }
+
+  .inbox-item {
+    grid-template-columns: 1fr;
+  }
+
+  .delete-message-btn {
+    width: 100%;
+  }
+}
 
 
 

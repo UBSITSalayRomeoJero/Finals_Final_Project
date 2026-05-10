@@ -8,12 +8,12 @@ import AdminLogin from "./admin/AdminLogin";
 import AdminRegister from "./admin/AdminRegister";
 import AdminDashboard from "./admin/AdminDashboard";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/Finals_Final_Project">
       <div className="d-flex">
         <Sidebar />
 

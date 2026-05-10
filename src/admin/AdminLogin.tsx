@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 function AdminLogin() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,8 +12,14 @@ function AdminLogin() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!username.trim() || !password.trim()) {
-      setStatus("Please enter both your username and password.");
+    if (!email.trim() || !password.trim()) {
+      setStatus("Please enter both your email and password.");
+      return;
+    }
+
+    const emailPattern = /\S+@\S+\.\S+/;
+    if (!emailPattern.test(email)) {
+      setStatus("Please enter a valid email address.");
       return;
     }
 
@@ -25,7 +31,7 @@ function AdminLogin() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: username.trim(),
+          email: email.trim(),
           password,
         }),
       });
@@ -36,7 +42,7 @@ function AdminLogin() {
         localStorage.setItem("isAdminAuth", "true");
         navigate("/admin/dashboard");
       } else {
-        setStatus("The username or password you entered is incorrect.");
+        setStatus("The email or password you entered is incorrect.");
       }
     } catch (err) {
       console.log(err);
@@ -69,18 +75,18 @@ function AdminLogin() {
         <div className="login-card">
           <div className="login-card-header">
             <h2>Welcome Back</h2>
-            <p>Enter your admin credentials to continue.</p>
+            <p>Enter your admin email and password to continue.</p>
           </div>
 
           <form onSubmit={handleLogin} className="login-form">
             <div className="login-field">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="email">Email Address</label>
               <input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="login-input"
               />
             </div>

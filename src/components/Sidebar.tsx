@@ -35,9 +35,12 @@ const Sidebar = () => {
     <aside className="profile-sidebar">
       <div>
         <div className="sidebar-profile">
-          <div className="profile-image-wrap">
-            <img src="/Romeo.jpg" alt="Romeo Jero Salay" />
-          </div>
+<div className="profile-image-wrap">
+  <img
+    src={`${import.meta.env.BASE_URL}Romeo.jpg`}
+    alt="Romeo Jero Salay"
+  />
+</div>
 
           <p className="sidebar-eyebrow">Portfolio</p>
 

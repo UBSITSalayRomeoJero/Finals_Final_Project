@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 interface Message {
+  id?: number;
+  _id?: string;
   name?: string;
   fullName?: string;
   email: string;
@@ -15,11 +17,15 @@ function AdminDashboard() {
   const [selected, setSelected] = useState<Message | null>(null);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<string | number | null>(null);
 
   const navigate = useNavigate();
   const isAuth = localStorage.getItem("isAdminAuth");
 
-  const getSenderName = (msg: Message) => msg.fullName || msg.name || "Unknown Sender";
+  const getSenderName = (msg: Message) =>
+    msg.fullName || msg.name || "Unknown Sender";
+
+  const getMessageId = (msg: Message) => msg._id || msg.id;
 
   const fetchMessages = async () => {
     setLoading(true);
@@ -59,6 +65,48 @@ function AdminDashboard() {
       );
     });
   }, [messages, search]);
+
+  const handleDelete = async (msg: Message) => {
+    const messageId = getMessageId(msg);
+
+    if (!messageId) {
+      alert("This message has no ID, so it cannot be deleted yet.");
+      return;
+    }
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this message?"
+    );
+
+    if (!confirmDelete) return;
+
+    setDeletingId(messageId);
+
+    try {
+      const res = await fetch(`http://localhost:5000/contact/${messageId}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        throw new Error("Delete failed");
+      }
+
+      const updatedMessages = messages.filter(
+        (item) => getMessageId(item) !== messageId
+      );
+
+      setMessages(updatedMessages);
+
+      if (selected && getMessageId(selected) === messageId) {
+        setSelected(updatedMessages[0] || null);
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Failed to delete message.");
+    }
+
+    setDeletingId(null);
+  };
 
   const uniqueSenders = new Set(messages.map((msg) => msg.email)).size;
   const messagesWithSubject = messages.filter((msg) => msg.subject.trim()).length;
@@ -132,22 +180,37 @@ function AdminDashboard() {
             {filteredMessages.length > 0 ? (
               filteredMessages.map((msg, i) => {
                 const sender = getSenderName(msg);
+                const messageId = getMessageId(msg);
 
                 return (
-                  <button
-                    key={`${msg.email}-${i}`}
+                  <div
+                    key={messageId || `${msg.email}-${i}`}
                     className={`inbox-item ${selected === msg ? "active" : ""}`}
-                    onClick={() => setSelected(msg)}
                   >
-                    <span className="sender-avatar">
-                      {sender.charAt(0).toUpperCase()}
-                    </span>
+                    <button
+                      type="button"
+                      className="inbox-select-btn"
+                      onClick={() => setSelected(msg)}
+                    >
+                      <span className="sender-avatar">
+                        {sender.charAt(0).toUpperCase()}
+                      </span>
 
-                    <span className="inbox-copy">
-                      <strong>{sender}</strong>
-                      <small>{msg.subject || "No subject"}</small>
-                    </span>
-                  </button>
+                      <span className="inbox-copy">
+                        <strong>{sender}</strong>
+                        <small>{msg.subject || "No subject"}</small>
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      className="delete-message-btn"
+                      onClick={() => handleDelete(msg)}
+                      disabled={deletingId === messageId}
+                    >
+                      {deletingId === messageId ? "..." : "Delete"}
+                    </button>
+                  </div>
                 );
               })
             ) : (
@@ -187,7 +250,9 @@ function AdminDashboard() {
                 {selected.createdAt && (
                   <div>
                     <span>Received</span>
-                    <strong>{new Date(selected.createdAt).toLocaleDateString()}</strong>
+                    <strong>
+                      {new Date(selected.createdAt).toLocaleDateString()}
+                    </strong>
                   </div>
                 )}
               </div>
