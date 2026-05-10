@@ -1,173 +1,201 @@
-import { Carousel, Accordion, OverlayTrigger, Popover } from "react-bootstrap";
+import {
+  Accordion,
+  OverlayTrigger,
+  Popover,
+  Container,
+  Row,
+  Col,
+  Card,
+  Badge,
+  Button,
+} from "react-bootstrap";
 
 function About() {
+const popover = (
+  <Popover className="profile-popover">
+    <Popover.Header as="h3">Quick Profile</Popover.Header>
+    <Popover.Body>
+      I am an IT student who enjoys turning ideas into working web projects.
+      I am still learning, but I like building interfaces that feel simple,
+      organized, and easy to use.
+    </Popover.Body>
+  </Popover>
+);
 
-  const popover = (
-    <Popover>
-      <Popover.Header as="h3">Quick Info</Popover.Header>
-      <Popover.Body>
-        Passionate about building modern web apps and UI design.
-      </Popover.Body>
-    </Popover>
-  );
+const specialties = [
+  {
+    title: "Frontend Development",
+    desc: "I enjoy working on the parts of a website that people actually see and interact with. I focus on making layouts responsive, readable, and comfortable to use on different screen sizes.",
+  },
+  {
+    title: "Backend Development",
+    desc: "I am learning how the server side of an application works, from creating routes to handling data properly. I like understanding how the frontend and backend connect behind the scenes.",
+  },
+  {
+    title: "Database Systems",
+    desc: "I have experience working with MySQL and MongoDB for storing and organizing data. I am still improving, but I understand how important clean data structure is in a real application.",
+  },
+  {
+    title: "UI/UX Design",
+    desc: "I care about how a project feels, not just how it looks. I try to keep my designs clean and practical so users can understand the page without getting confused.",
+  },
+  {
+    title: "Problem Solving",
+    desc: "When something does not work, I try to break the problem into smaller parts instead of guessing right away. Debugging has helped me become more patient and more careful with my code.",
+  },
+  {
+    title: "Team Collaboration",
+    desc: "I have worked on group projects where communication and responsibility mattered. I try to do my part well, listen to feedback, and help keep the project moving.",
+  },
+];
+
+
+  const skills = [
+    "React",
+    "TypeScript",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "Bootstrap",
+    "Node.js",
+    "Express",
+    "MySQL",
+    "MongoDB",
+    "Java",
+    "Python",
+  ];
 
   return (
-<div>
+    <main className="about-page">
+      <section className="about-hero">
+        <Container>
+          <Row className="align-items-center justify-content-center text-center">
+            <Col lg={8}>
+              <p className="hero-eyebrow">Hello, I'm</p>
 
-  {/* HERO */}
-  <div className="hero">
+              <h1 className="hero-title">
+                Romeo Jero <span>Salay</span>
+              </h1>
 
-    <div className="hero-content">
-      <h1>
-        Hi, I'm <span className="gradient-name">Romeo Jero Salay</span>
-      </h1>
-      <p>Aspiring Web Developer | UI Enthusiast</p>
+              <p className="hero-subtitle">
+                Aspiring Full Stack Developer | UI/UX Enthusiast | Problem Solver
+              </p>
 
-      <OverlayTrigger trigger="click" placement="right" overlay={popover} rootClose>
-        <span>
-          <button className="btn btn-outline-light mt-3">
-            More Info
-          </button>
-        </span>
-      </OverlayTrigger>
-    </div>
-  </div>
+              <OverlayTrigger
+                trigger="click"
+                placement="bottom"
+                overlay={popover}
+                rootClose
+              >
+                <Button className="hero-button">View Quick Profile</Button>
+              </OverlayTrigger>
+            </Col>
+          </Row>
+        </Container>
+      </section>
 
-      {/* ABOUT */}
-      <div className="container mt-5 section-box">
-
-        <h2 className="mb-3 title-sage">About Me</h2>
-
-        <Carousel>
-          <Carousel.Item>
-            <img src="/About1.png" className="d-block w-100" />
-            <Carousel.Caption>
-              <h5>Developer Journey</h5>
-            </Carousel.Caption>
-          </Carousel.Item>
-
-          <Carousel.Item>
-            <img src="/About2.png" className="d-block w-100" />
-            <Carousel.Caption>
-              <h5>Projects & Skills</h5>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
-
-        <Accordion className="mt-4">
-
-<Accordion.Item eventKey="0">
-  <Accordion.Header>My Background</Accordion.Header>
-  <Accordion.Body>
-
-    <div className="card p-3 bg-dark text-light">
-
-      <h5 className="title-sage mb-3">Personal Information</h5>
-
-      <p><strong>Name:</strong> Romeo Jero Salay</p>
-      <p><strong>Age:</strong> 19 years old</p>
-      <p><strong>Birthday:</strong> July 29, 2006</p>
-      <p><strong>Location:</strong> Philippines</p>
-      <p><strong>Status:</strong> IT Student at University of Baguio</p>
-
-      <hr style={{ borderColor: "#444" }} />
-
-      <p>
-        I just graduated at University of Baguio this year with the Bachelor in Information Technology.
-        Now I am currently trying to get hired by making this portfolio! 
-      </p>
-
-    </div>
-
-  </Accordion.Body>
-</Accordion.Item>
-
-          <Accordion.Item eventKey="1">
-            <Accordion.Header>My Skills</Accordion.Header>
-            <Accordion.Body>
-                  <div className="card p-3 bg-dark text-light">
-                    <h5 className="title-sage mb-3">List of my skills:</h5>
-                    React, TypeScript, MySQL, Java, Python.
-                  </div>
-            </Accordion.Body>
-          </Accordion.Item>
-
-          <Accordion.Item eventKey="2">
-            <Accordion.Header>My Goals</Accordion.Header>
-            <Accordion.Body>
-              To become a professional full-stack developer and contribute to impactful systems.
-            </Accordion.Body>
-          </Accordion.Item>
-
-        </Accordion>
-
-      </div>
-
-      {/* SPECIALTIES */}
-      <div className="container mt-5 section-box">
-
-        <div className="row">
-
-          <div className="col-md-4">
-            <h2 className="title-purple">My Specialties</h2>
-            <p style={{ color: "#bbb" }}>
-              These are the areas where I focus my skills and continuously improve as a developer.
-            </p>
+      <section className="about-section">
+        <Container>
+          <div className="section-heading">
+            <p className="section-kicker">Profile</p>
+            <h2>About Me</h2>
           </div>
 
-          <div className="col-md-8">
-            <div className="row">
+          <Accordion className="about-accordion" defaultActiveKey="0">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>Background</Accordion.Header>
+              <Accordion.Body>
+                <Row className="g-3 mb-3">
+                  <Col sm={6} lg={3}>
+                    <div className="info-box">
+                      <span>Name</span>
+                      <strong>Romeo Jero Salay</strong>
+                    </div>
+                  </Col>
 
-              <div className="col-md-6 mb-3">
-                <div className="card p-3">
-                  <h5 className="title-sage">Frontend Development</h5>
-                  <p>-- Short Description --</p>
+                  <Col sm={6} lg={3}>
+                    <div className="info-box">
+                      <span>Age</span>
+                      <strong>19</strong>
+                    </div>
+                  </Col>
+
+                  <Col sm={6} lg={3}>
+                    <div className="info-box">
+                      <span>Location</span>
+                      <strong>Philippines</strong>
+                    </div>
+                  </Col>
+
+                  <Col sm={6} lg={3}>
+                    <div className="info-box">
+                      <span>Education</span>
+                      <strong>University of Baguio</strong>
+                    </div>
+                  </Col>
+                </Row>
+
+              <p className="accordion-copy">
+                I am currently studying Information Technology at the University of Baguio.
+                Most of my learning right now is focused on web development, programming
+                fundamentals, and understanding how real applications are planned and built.
+                I enjoy projects where I can combine logic, design, and problem solving.
+              </p>
+
+              </Accordion.Body>
+            </Accordion.Item>
+
+            <Accordion.Item eventKey="1">
+              <Accordion.Header>Technical Skills</Accordion.Header>
+              <Accordion.Body>
+                <div className="skill-list">
+                  {skills.map((skill) => (
+                    <Badge bg="light" text="dark" key={skill}>
+                      {skill}
+                    </Badge>
+                  ))}
                 </div>
-              </div>
+              </Accordion.Body>
+            </Accordion.Item>
 
-              <div className="col-md-6 mb-3">
-                <div className="card p-3">
-                  <h5 className="title-sage">Backend Development</h5>
-                  <p>-- Short Description --</p>
-                </div>
-              </div>
+            <Accordion.Item eventKey="2">
+              <Accordion.Header>Career Goals</Accordion.Header>
+              <Accordion.Body>
+                <p className="accordion-copy mb-0">
+                  My goal is to become a full-stack developer who can build complete and useful
+                  applications, from the interface down to the database. I know I still have a
+                  lot to learn, so I want to keep improving through practice, real projects, and
+                  working with people who can challenge me to become better.
+                </p>
 
-              <div className="col-md-6 mb-3">
-                <div className="card p-3">
-                  <h5 className="title-sage">Database Management</h5>
-                  <p>-- Short Description --</p>
-                </div>
-              </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </Container>
+      </section>
 
-              <div className="col-md-6 mb-3">
-                <div className="card p-3">
-                  <h5 className="title-sage">UI/UX Design</h5>
-                  <p>-- Short Description --</p>
-                </div>
-              </div>
-
-              <div className="col-md-6 mb-3">
-                <div className="card p-3">
-                  <h5 className="title-sage">Problem Solving</h5>
-                  <p>-- Short Description --</p>
-                </div>
-              </div>
-
-              <div className="col-md-6 mb-3">
-                <div className="card p-3">
-                  <h5 className="title-sage">Team Collaboration</h5>
-                  <p>-- Short Description --</p>
-                </div>
-              </div>
-
-            </div>
+      <section className="about-section specialties-section">
+        <Container>
+          <div className="section-heading">
+            <p className="section-kicker">Strengths</p>
+            <h2>Specialties</h2>
           </div>
 
-        </div>
-
-      </div>
-
-    </div>
+          <Row className="g-4">
+            {specialties.map((item) => (
+              <Col md={6} lg={4} key={item.title}>
+                <Card className="specialty-card">
+                  <Card.Body>
+                    <h5>{item.title}</h5>
+                    <p>{item.desc}</p>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+    </main>
   );
 }
 

@@ -4,7 +4,9 @@ import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
-import Admin from "./pages/Admin";
+import AdminLogin from "./admin/AdminLogin";
+import AdminRegister from "./admin/AdminRegister";
+import AdminDashboard from "./admin/AdminDashboard";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
@@ -23,7 +25,9 @@ function App() {
               <Route path="/" element={<About />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/register" element={<AdminRegister />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
             </Routes>
           </div>
         </div>

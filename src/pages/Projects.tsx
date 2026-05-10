@@ -1,90 +1,124 @@
-import { useState } from "react";
-import ProjectModal from "../components/ProjectModal";
-
-interface Project {
-  title: string;
-  image: string;
-  description: string;
-  full: string;
-}
-
 function Projects() {
-
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
-  const projects: Project[] = [
+  const projects = [
     {
-      title: "Student Portal",
-      image: "/project1.png",
-      description: "A Midterm Examination and making a full Student Portal for the school.",
-      full: "/project2.png"
+      title: "Club Dashboard Web App",
+      description:
+        "A dashboard-style web app made for viewing club information in a more organized way. This project helped me practice building clean layouts, grouping data clearly, and making a page feel useful instead of just decorative.",
+      link: "https://ubsitsalayromeojero.github.io/club-dashboard-lab/",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
+      tech: ["React", "Bootstrap", "Dashboard"],
+      features: [
+        "Dashboard layout for quick scanning",
+        "Organized sections for club-related data",
+        "Responsive design for different screen sizes",
+      ],
     },
     {
-      title: "Club Event Dashboard",
-      image: "/project3.png",
-      description: "A Prelims Examination and making a Club Event Dashboard where we can track each student with their respective clubs.",
-      full: "/project4.png"
+      title: "City Issue Reporting System",
+      description:
+        "A community-focused reporting platform where users can submit and track city concerns. I worked on this project to better understand how forms, navigation, and visual organization can support a real-world reporting process.",
+      link: "https://ubsitnierelfamara.github.io/city-issue-platform/#/",
+      image:
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80",
+      tech: ["React", "UI System", "Routing"],
+      features: [
+        "Issue reporting interface",
+        "Structured pages with routing",
+        "Clear layout for reviewing submitted concerns",
+      ],
     },
-        {
-      title: "Course Feedback Database",
-      image: "/project5.png",
-      description: "A Final Activity and making of a Feedback connected to a database.",
-      full: "/project6.png"
-    }
+    {
+      title: "Self Made Student Portal",
+      description:
+        "A student portal concept designed to help students view school announcements and send feedback to the administration. This project gave me more practice in creating pages that feel simple, direct, and useful for everyday school communication.",
+      link: "https://ubsitsalayromeojero.github.io/student-portal/",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjB1-KrIW9APBu9R11KS9xx-SV3bb8zzSqDQ&s",
+      tech: ["Forms", "Data Collection", "Viewing System"],
+      features: [
+        "Announcement viewing section",
+        "Feedback form for students",
+        "Simple student-centered interface",
+      ],
+    },
   ];
 
   return (
-    <div>
+    <main className="projects-page">
+      <section className="projects-header">
+        <div className="container">
+          <p className="section-kicker">Selected Work</p>
 
-      {/* SMALL HEADER (DIFFERENT FROM ABOUT) */}
-      <div className="container mt-4 project-header">
-        <h2 className="title-purple">PROJECTS</h2>
-      </div>
-
-      {/* INTRO */}
-      <div className="container mt-3">
-
-        <h3 className="title-sage">Recent Projects</h3>
-        <p style={{ color: "#bbb" }}>
-          These projects are part of my AppTech subject when I was first year at UB.
-        </p>
-
-        {/* PROJECT LIST */}
-        <div className="row mt-4">
-
-          {projects.map((proj, index) => (
-            <div className="col-md-4 mb-4" key={index}>
-
-              <div
-                className="project-card"
-                onClick={() => setSelectedProject(proj)}
-              >
-
-                <img src={proj.image} />
-
-                {/* TITLE OVERLAY */}
-                <div className="project-title-overlay">
-                  {proj.title}
-                </div>
-
-              </div>
-
-            </div>
-          ))}
-
+          <div className="projects-heading">
+            <h2>Projects</h2>
+            <p>
+              These are some of the academic web projects I built while studying
+              at the University of Baguio. Each project helped me improve a
+              different part of development, from designing clearer interfaces to
+              working with forms, routing, and structured page layouts.
+            </p>
+          </div>
         </div>
+      </section>
 
-      </div>
+      <section className="projects-grid-section">
+        <div className="container">
+          <div className="row g-4">
+            {projects.map((project, index) => (
+              <div className="col-md-6 col-lg-4" key={project.title}>
+                <article className="project-card">
+                  <div className="project-image-wrap">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="project-image"
+                    />
 
-      {/* MODAL */}
-      {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
-      )}
+                    <span className="project-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
 
-    </div>
+                  <div className="project-card-body">
+                    <h5 className="project-title">{project.title}</h5>
+
+                    <p className="project-desc">{project.description}</p>
+
+                    <div className="project-features">
+                      {project.features.map((feature) => (
+                        <div className="project-feature" key={feature}>
+                          <span></span>
+                          <p>{feature}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="tech-list">
+                      {project.tech.map((tech) => (
+                        <span className="tech-tag" key={tech}>
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-btn"
+                    >
+                      View Live Project
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  </div>
+                </article>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 
